@@ -13,8 +13,8 @@ console.log(enemyNames[0]);
 console.log(enemyNames[3]);
 
 var fight = function(enemyName) {
-    window.alert("Welcome to Robort Gladiators!");
-    var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
+    while(enemyHealth > 0) {
+      var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
     if (promptFight === "fight" || promptFight === "FIGHT") {
      //Subtract the value of `playerAttack` from the value of `enemyHealth` and use that result to update the value in the `enemyHealth` variable
     enemyHealth = enemyHealth - playerAttack;
@@ -53,9 +53,14 @@ var fight = function(enemyName) {
     }
     else {
         window.alert("You need to choose a valid option. Try again!");
+      
+    }
+   
     }
 };
 
 for(var i = 0; i < enemyNames.length; i++) {
-    fight(enemyNames[i]);
+    var pickedEnemyName = enemyNames[i];
+    enemyHealth = 50;
+    fight(pickedEnemyName);
 }
