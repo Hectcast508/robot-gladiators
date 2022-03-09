@@ -90,7 +90,6 @@ var startGame = function() {
   }
 
   endGame();
-  debugger
 };
 
 var endGame = function() {
