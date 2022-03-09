@@ -85,12 +85,14 @@ var fightOrSkip = function() {
 
 var fight = function(enemy) {
   var isPlayerTurn = true;
+  
   if (Math.random() > 0.5) {
     isPlayerTurn = false;
   }
 
   while (playerInfo.health > 0 && enemy.health > 0) {
     if (isPlayerTurn) {
+      
       if (fightOrSkip()) {
         break;
       }
@@ -112,13 +114,16 @@ var fight = function(enemy) {
   
         // leave while() loop since enemy is dead
         break;
-      }
+      
+    }
       else {
         window.alert(enemy.name + ' still has ' + enemy.health + ' health left.');
       }
+    }
+      else {
+        var damage = randomNumber(enemy.attack - 3, enemy.attack);
   
       // remove players's health by subtracting the amount set in the enemyAttack variable
-      var damage = randomNumber(enemy.attack - 3, enemy.attack);
       playerInfo.health = Math.max(0, playerInfo.health - damage);
 
       console.log(
@@ -134,7 +139,7 @@ var fight = function(enemy) {
         window.alert(playerInfo.name + ' still has ' + playerInfo.health + ' health left.');
       }
     }
-      isPlayerTurn = !isPlayerTurn;
+    isPlayerTurn = !isPlayerTurn;
   } 
 };
 
@@ -173,11 +178,19 @@ var startGame = function() {
 var endGame = function() {
   window.alert("The game has now ended. Lets see how you did!");
 
-  if (playerInfo.health > 0) {
-    window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + ".");
+  var highscore = localStorage.getItem("highscore");
+  if (highscore === null) {
+    highscore = 0;
+  }
+
+  if (playerInfo.money > highscore) {
+    localStorage.setItem("highscore", playerInfo.money);
+    localStorage.setItem("name", playerInfo.name);
+
+    alert(playerInfo.name + " now has the high score of " + playerInfo.money + "!");
   }
   else {
-    window.alert("You've lost your robot in battle.");
+    alert(playerInfo.name + " did not beat the high score of " + highscore + ". Maybe next time!");
   }
 
   var playerAgainConfirm = window.confirm("Would you like to play again?");
