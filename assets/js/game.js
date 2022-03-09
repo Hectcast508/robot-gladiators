@@ -84,13 +84,17 @@ var fightOrSkip = function() {
 };
 
 var fight = function(enemy) {
+  var isPlayerTurn = true;
+  if (Math.random() > 0.5) {
+    isPlayerTurn = false;
+  }
 
   while (playerInfo.health > 0 && enemy.health > 0) {
-    // ask player if they'd like to fight or run
+    if (isPlayerTurn) {
       if (fightOrSkip()) {
         break;
       }
-  
+    
       // remove enemy's health by subtracting the amount set in the playerInfo.attack variable
       var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
       enemy.health = Math.max(0, enemy.health - damage);
@@ -129,6 +133,8 @@ var fight = function(enemy) {
       } else {
         window.alert(playerInfo.name + ' still has ' + playerInfo.health + ' health left.');
       }
+    }
+      isPlayerTurn = !isPlayerTurn;
   } 
 };
 
